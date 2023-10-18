@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-export const Empleados = React.memo(({ pagina = 1 }) => {
+export const Empleados = React.memo(({ pagina = 1, mensaje }) => {
     
     const [empleados, setEmpleados] = useState([]);
     
-    useEffect(() => {
-      conseguirEmpleados(pagina);
-    }, [pagina])
+    useEffect(() =>{
+      console.log("Se ha vuelto a renderizar Empleados!")
+    },[empleados])
     
     const conseguirEmpleados = async (p) => {
       const url = `https://reqres.in/api/users?page=${p}`;
@@ -16,11 +16,15 @@ export const Empleados = React.memo(({ pagina = 1 }) => {
       // console.log(empleados)
       setEmpleados(empleados)
 
-      console.log("Se ejecuto la petición ajax")
     }
 
-    console.log("Se ha vuelto a renderizar Empleados!")
-    
+    useEffect(() => {
+      conseguirEmpleados(pagina);
+      mensaje();
+    }, [pagina]);
+
+
+
   return (
     <div>
       <p>Mostrando la página : {pagina}</p>
